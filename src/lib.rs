@@ -8,11 +8,21 @@ use num_traits::Num;
 // impl IsTrue for Assert<true> {}
 
 trait Tensor<V: Num, const D: usize> {
-    const C: usize;
+    // const C: usize;
 
-    fn value(&self, index: usize) -> impl Tensor<V, { D - 1 }>
+    fn value(&self, index: usize) -> &dyn Tensor<V, { D - 1 }>
     where
         [(); D - 1]:;
+}
+
+impl<V: Num, const D: usize, const C: usize> Tensor<V, D> for [&dyn Tensor<V, { D - 1 }>; C] {
+    // const C: usize = C;
+    fn value(&self, index: usize) -> &dyn Tensor<V, { D - 1 }>
+    where
+        [(); D - 1]:,
+    {
+        return self[index];
+    }
 }
 
 // impl<V: Num, const C: usize, const D: usize> Tensor<V, C, D>
