@@ -34,12 +34,15 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let t: &dyn Tensor2<_, 2, 3, Output = [i32; 3]> = &[[1, 2, 3], [4, 5, 6]];
-        assert_eq!(t[0][0], 1);
-        assert_eq!(t[0][1], 2);
-        assert_eq!(t[0][2], 3);
-        assert_eq!(t[1][0], 4);
-        assert_eq!(t[1][1], 5);
-        assert_eq!(t[1][2], 6);
+        let a = [[1, 2, 3], [4, 5, 6]];
+        assert_eq!(*it(&a, 0, 0), 1);
+        assert_eq!(*it(&a, 0, 1), 2);
+        assert_eq!(*it(&a, 0, 2), 3);
+        assert_eq!(*it(&a, 1, 0), 4);
+        assert_eq!(*it(&a, 1, 1), 5);
+        assert_eq!(*it(&a, 1, 2), 6);
+    }
+    fn it(t: &impl Tensor2<i32, 2, 3, Output = [i32; 3]>, i: usize, j: usize) -> &i32 {
+        return &t[i][j];
     }
 }
