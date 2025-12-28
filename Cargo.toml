@@ -1,7 +1,3 @@
-[package]
-name = "tensor"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-num-traits = "0.2.19"
+[workspace]
+resolver = "3"
+members = ["dependent_types", "tensor"]
